@@ -16,7 +16,6 @@ class OpenMeteoApiClient {
   OpenMeteoApiClient({http.Client? httpClient})
       : _httpClient = httpClient ?? http.Client();
 
-  static const _baseUrlWeather = 'api.open-meteo.com';
   static const _baseUrlGeocoding = 'geocoding-api.open-meteo.com';
 
   final http.Client _httpClient;
@@ -45,36 +44,44 @@ class OpenMeteoApiClient {
     return Location.fromJson(results.first as Map<String, dynamic>);
   }
 
+//   Future<Weather> getWeather({
+//     required double latitude,
+//     required double longitude,
+//   }) async {
+//     final weatherRequest = Uri.https(_baseUrlWeather, 'v1/forecast', {
+//       'latitude': '$latitude',
+//       'longitude': '$longitude',
+//       'current_weather': 'true',
+//     });
+
+//     final weatherResponse = await _httpClient.get(weatherRequest);
+
+//     if (weatherResponse.statusCode != 200) {
+//       throw WeatherRequestFailure();
+//     }
+
+//     final bodyJson = jsonDecode(weatherResponse.body) as Map<String, dynamic>;
+
+//     if (!bodyJson.containsKey('current_weather')) {
+//       throw WeatherNotFoundFailure();
+//     }
+
+//     final weatherJson = bodyJson['current_weather'] as Map<String, dynamic>;
+
+//     return Weather.fromJson(weatherJson);
+//   }
+// }
   Future<Weather> getWeather({
     required double latitude,
     required double longitude,
   }) async {
-    final weatherRequest = Uri.https(_baseUrlWeather, 'v1/forecast', {
-      'latitude': '$latitude',
-      'longitude': '$longitude',
-      'current_weather': 'true',
-      'hourly': {
-        'temperature_2m',
-        'relativehumidity_2m',
-        'precipitation_probability',
-        'weathercode',
-      }
-    });
+    final response = await http.get(Uri.parse(
+        'https://api.openweathermap.org/data/3.0/onecall?lat=$latitude&lon=$longitude&exclude=minutely&appid=f4bc1306c8c0bda6307d0dc8941437a4&units=metric'));
 
-    final weatherResponse = await _httpClient.get(weatherRequest);
-
-    if (weatherResponse.statusCode != 200) {
-      throw WeatherRequestFailure();
+    if (response.statusCode == 200) {
+      return Weather.fromJson(jsonDecode(response.body));
+    } else {
+      throw Exception('Failed to load album');
     }
-
-    final bodyJson = jsonDecode(weatherResponse.body) as Map<String, dynamic>;
-
-    if (!bodyJson.containsKey('current_weather')) {
-      throw WeatherNotFoundFailure();
-    }
-
-    final weatherJson = bodyJson['current_weather'] as Map<String, dynamic>;
-
-    return Weather.fromJson(weatherJson);
   }
 }

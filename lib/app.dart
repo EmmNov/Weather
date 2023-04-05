@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:weather_app/theme/cubit/theme_cubit.dart';
-import 'package:weather_app/weather/view/weather_page.dart';
+import 'package:weather_app/weather/view/current_weather/weather_page.dart';
 import 'package:weather_repository/weather_repository.dart';
 
 class WeatherApp extends StatelessWidget {
@@ -36,7 +36,7 @@ class WeatherAppView extends StatelessWidget {
           theme: ThemeData(
             scaffoldBackgroundColor: const Color(0xFF232535),
             primaryColor: color,
-            textTheme: GoogleFonts.baloo2TextTheme(),
+            // textTheme: GoogleFonts.baloo2TextTheme(),
             appBarTheme: AppBarTheme(
               elevation: 0,
               backgroundColor: const Color(0xFF232535),

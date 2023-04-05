@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../search/view/search_page.dart';
-import '../../cubit/weather_cubit.dart';
+import '../../../../search/view/search_page.dart';
+import '../../../cubit/weather_cubit.dart';
 
 class WeatherEmpty extends StatelessWidget {
   const WeatherEmpty({super.key});

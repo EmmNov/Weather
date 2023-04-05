@@ -13,7 +13,7 @@ extension WeatherStatusX on WeatherStatus {
 class WeatherState extends Equatable {
   WeatherState({
     this.status = WeatherStatus.initial,
-    this.windspeedUnits = WindspeedUnits.kmh,
+    this.windspeedUnits = WindspeedUnits.ms,
     this.temperatureUnits = TemperatureUnits.celsius,
     Weather? weather,
   }) : weather = weather ?? Weather.empty;

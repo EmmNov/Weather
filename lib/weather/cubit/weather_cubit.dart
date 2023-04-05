@@ -2,6 +2,7 @@ import 'package:equatable/equatable.dart';
 import 'package:weather_app/weather/models/weather.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:weather_app/weather/extention.dart';
 import 'package:weather_repository/weather_repository.dart'
     show WeatherRepository;
 
@@ -104,7 +105,7 @@ class WeatherCubit extends HydratedCubit<WeatherState> {
 
   void toggleSpeed() {
     final speed =
-        state.windspeedUnits.isMph ? WindspeedUnits.kmh : WindspeedUnits.mph;
+        state.windspeedUnits.isMph ? WindspeedUnits.ms : WindspeedUnits.mph;
     if (!state.status.isSuccess) {
       emit(state.copyWith(windspeedUnits: speed));
       return;
@@ -114,7 +115,7 @@ class WeatherCubit extends HydratedCubit<WeatherState> {
     if (weather != Weather.empty) {
       final windspeed = weather.windspeed;
       final valuespeed =
-          speed.isKmh ? windspeed.value.toKmh() : windspeed.value.toMph();
+          speed.isMs ? windspeed.value.toMs() : windspeed.value.toMph();
 
       emit(
         state.copyWith(
@@ -133,11 +134,4 @@ class WeatherCubit extends HydratedCubit<WeatherState> {
 
   @override
   Map<String, dynamic> toJson(WeatherState state) => state.toJson();
-}
-
-extension on double {
-  double toFahrenheit() => (this * 9 / 5) + 32;
-  double toCelsius() => (this - 32) * 5 / 9;
-  double toMph() => this / 1.609;
-  double toKmh() => this * 1.609;
 }

@@ -21,7 +21,7 @@ WeatherState _$WeatherStateFromJson(Map<String, dynamic> json) =>
               'windspeed_units',
               (v) =>
                   $enumDecodeNullable(_$WindspeedUnitsEnumMap, v) ??
-                  WindspeedUnits.kmh),
+                  WindspeedUnits.ms),
           temperatureUnits: $checkedConvert(
               'temperature_units',
               (v) =>
@@ -58,7 +58,7 @@ const _$WeatherStatusEnumMap = {
 };
 
 const _$WindspeedUnitsEnumMap = {
-  WindspeedUnits.kmh: 'kmh',
+  WindspeedUnits.ms: 'ms',
   WindspeedUnits.mph: 'mph',
 };
 
