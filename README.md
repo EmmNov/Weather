@@ -1,1 +1,1 @@
-WEATHER APP
+Weather App
